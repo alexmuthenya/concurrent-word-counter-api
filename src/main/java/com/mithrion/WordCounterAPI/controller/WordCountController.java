@@ -22,9 +22,9 @@ public class WordCountController {
     @PostMapping
     public WordCountResponse countWord(
             @RequestParam("file") MultipartFile file,
-            @RequestParam("word") String word
-    ) throws Exception {
+            @RequestParam("word") String word,
+            @RequestParam(value = "mode", defaultValue = "single") String mode) throws Exception {
 
-        return wordCountService.countWord(file, word);
+        return wordCountService.countWordOccurrences(file, word, mode);
     }
 }
