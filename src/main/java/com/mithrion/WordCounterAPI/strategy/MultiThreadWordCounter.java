@@ -21,7 +21,6 @@ public class MultiThreadWordCounter implements WordCounterStrategy {
     @Override
     public int CountWord(File file, String word) throws Exception {
         int cores = Runtime.getRuntime().availableProcessors();
-        System.out.println("Number of cores is: " + cores);
         ExecutorService executor = Executors.newFixedThreadPool(cores);
 
         List<Future<Integer>> futures = new ArrayList<>();
