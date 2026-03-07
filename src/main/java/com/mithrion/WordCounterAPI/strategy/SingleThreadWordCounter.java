@@ -1,36 +1,31 @@
 package com.mithrion.WordCounterAPI.strategy;
 
+import org.springframework.stereotype.Component;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 
+@Component
 public class SingleThreadWordCounter implements  WordCounterStrategy{
     private int totalCount;
     @Override
     public int CountWord(File file, String word) throws Exception {
         try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
             String line;
-
             while ((line = reader.readLine()) != null) {
                 totalCount += countInLine(line, word);
-
-            }
-
-
-        }
-        return totalCount;
-    }
-
+            }}
+        return totalCount;}
     private int countInLine(String line, String target) {
         int count = 0;
-        // Split by whitespace (spaces, tabs, newlines)
-        String[] words = line.split("\\s+");
+        int index = 0;
+        String lowerLine = line.toLowerCase();
+        String lowerTarget = target.toLowerCase();
 
-        for (String word : words) {
-            // Clean the word (remove punctuation) and compare
-            if (word.replaceAll("[^a-zA-Z]", "").equalsIgnoreCase(target)) {
-                count++;
-            }
+        while ((index = lowerLine.indexOf(lowerTarget, index)) != -1) {
+            count++;
+            index += lowerTarget.length();
         }
         return count;
     }
