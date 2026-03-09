@@ -28,6 +28,7 @@ public class WordCountTask implements Callable<Integer> {
         String lowerTarget = target.toLowerCase();
 
         while ((index = lowerLine.indexOf(lowerTarget, index)) != -1) {
+            count++;
             index += lowerTarget.length();
         }
         return count;
