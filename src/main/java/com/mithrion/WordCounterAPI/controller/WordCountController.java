@@ -24,6 +24,10 @@ public class WordCountController {
             @RequestParam("file") MultipartFile file,
             @RequestParam("word") String word,
             @RequestParam(value = "mode", defaultValue = "single") String mode) throws Exception {
+        String fileName = file.getOriginalFilename();
+        if (fileName == null || !fileName.toLowerCase().endsWith(".txt")) {
+            throw new IllegalArgumentException("Unsupported file format. Please upload a .txt file.");
+        }
 
         return wordCountService.countWordOccurrences(file, word, mode);
     }
