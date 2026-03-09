@@ -33,8 +33,8 @@ public class MultiThreadWordCounter implements WordCounterStrategy {
                 currentChunk.add(line);
 
                 if (currentChunk.size() == CHUNK_SIZE) {
-                    Callable<Integer> task = new WordCountTask(new ArrayList<>(currentChunk), word);
-                    futures.add(executor.submit(task));
+                    List<String> chunkToProcess = new ArrayList<>(currentChunk);
+                    futures.add(executor.submit(new WordCountTask(chunkToProcess, word))) ;
                     currentChunk.clear();
                 }
             }
